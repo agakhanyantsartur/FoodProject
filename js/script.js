@@ -1,12 +1,12 @@
 "use strict";
 //1ая задача закрывать табы
 //2ая открывать нужные табы
-//3яя назначить обработчик событий на меню которая будет манипулировать свойствами
+//3яя назначить обработчик событий на меню который будет манипулировать свойствами
 window.addEventListener('DOMContentLoaded', () => {
     //Tabs
     const tabs = document.querySelectorAll('.tabheader__item');
     const tabsContent = document.querySelectorAll('.tabcontent');
-    //Делаем делегирование событий на родителя чтобы легче было управлять потомком, так как это может меняться динамически
+    //Делаем делегирование событий на родителя, чтобы легче было управлять потомком, так как он может меняться динамически
     const tabsParent = document.querySelector('.tabheader__items');
 
     function hideTabContent() {
