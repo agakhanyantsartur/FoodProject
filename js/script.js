@@ -94,7 +94,7 @@ window.addEventListener('DOMContentLoaded', () => {
                   timeSelector.innerHTML = getZero(timeValue);
                 }
               }
-         
+
             zeroing(t.days, days);
             zeroing(t.hours, hours);
             zeroing(t.minutes, minutes);
@@ -106,4 +106,41 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
     setClock('.timer', deadline);
+
+    //Modal
+
+    const modalTrigger = document.querySelectorAll('[data-modal]');
+    const modal = document.querySelector('.modal');
+    const modalCloseBtn = document.querySelector('[data-close]');
+    
+    //Так как нам нужно повесить событие на несколько кнопок, мы прописали querySelectorAll и теперь должны перебрать их через forEach
+    modalTrigger.forEach (btn => {
+        btn.addEventListener('click', () =>{
+            modal.classList.add('show');
+            modal.classList.remove('hide');
+            document.body.style.overflow = 'hidden'; // Делаем так, чтобы когда открыто модальное окно, нельзя было скролить
+        });
+    });
+
+    function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    //Делаем так, чтобы когда пользователь кликал на подложку во время откытого модального окна, окно закрывалось
+    modal.addEventListener('click', (e) => {
+        if(e.target === modal) {
+            closeModal();
+        }
+    });
+    //Делаем так, чтобы когда пользователь нажимал клавишу Esc, модальное окно закрывалось
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Escape' && modal.classList.contains('show')) { //Делам так, чтобы при нажатии на Esc, даже когда модальное окно было закрыто, функция закрытия модального окна срабатывала
+            closeModal();
+        }
+    });
+
 });
