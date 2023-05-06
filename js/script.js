@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //Timer
 
-    const deadline = '2015-04-15';
+    const deadline = '2023-08-15';
 
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date());//Получит количество миллисекунд до конченого времени
