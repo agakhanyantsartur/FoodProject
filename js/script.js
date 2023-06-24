@@ -260,9 +260,9 @@ window.addEventListener('DOMContentLoaded', () => {
             form.append(statusMessage);
 
             const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
+            request.open('POST', 'js/server.php');
 
-            request.setRequestHeader('Content-type', 'multipart/form-data');
+            // request.setRequestHeader('Content-type', 'multipart/form-data'); // когда мы используем связку XMLHttpRequest + formData нам не нужно устанавливать заголовок, так как он устанавливается автоматически
             const formData = new FormData(form);
 
             request.send(formData);
