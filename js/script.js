@@ -259,11 +259,7 @@ window.addEventListener('DOMContentLoaded', () => {
             `;
             form.insertAdjacentElement('afterend', statusMessage);
 
-            const request = new XMLHttpRequest();
-            request.open('POST', 'js/server.php');
-
             // request.setRequestHeader('Content-type', 'multipart/form-data'); // когда мы используем связку XMLHttpRequest + formData нам не нужно устанавливать заголовок, так как он устанавливается автоматически
-            request.setRequestHeader('Content-type', 'application/json');
             const formData = new FormData(form);
 
             const object = {};
@@ -271,25 +267,28 @@ window.addEventListener('DOMContentLoaded', () => {
                 object[key] = value;
             });
 
-            const json = JSON.stringify(object);
-
-            request.send(json);
-
-            request.addEventListener('load', () => {
-                if (request.status === 200) {
-                    console.log(request.response);
-                    showThanksModal(message.success);
-                    form.reset();
-                    statusMessage.remove();
-                } else {
-                    showThanksModal(message.failure);
-                }
+            fetch('server.php', {
+                method: "POST",
+                header: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(object)
             })
+            .then(data => data.text())
+            .then(data => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset();
+            });
         });
     }
 
     function showThanksModal(message) {
-        const prevModalDialog = document.querySelector('.modal__dialog');
+        const prevModalDialog = document.querySelector('.modal__dialog');   
 
         prevModalDialog.classList.add('hide');
         openModal();
