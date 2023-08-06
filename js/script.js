@@ -286,6 +286,7 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    // random comment
 
     function showThanksModal(message) {
         const prevModalDialog = document.querySelector('.modal__dialog');   
