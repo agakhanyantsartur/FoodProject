@@ -261,7 +261,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // request.setRequestHeader('Content-type', 'multipart/form-data'); // когда мы используем связку XMLHttpRequest + formData нам не нужно устанавливать заголовок, так как он устанавливается автоматически
             const formData = new FormData(form);
-
+// random comment
             const object = {};
             formData.forEach(function(value, key) {
                 object[key] = value;
@@ -286,7 +286,6 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    // random comment
 
     function showThanksModal(message) {
         const prevModalDialog = document.querySelector('.modal__dialog');   
