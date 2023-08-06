@@ -261,12 +261,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // request.setRequestHeader('Content-type', 'multipart/form-data'); // когда мы используем связку XMLHttpRequest + formData нам не нужно устанавливать заголовок, так как он устанавливается автоматически
             const formData = new FormData(form);
-// random comment
+
             const object = {};
             formData.forEach(function(value, key) {
                 object[key] = value;
             });
-
+// random comment
             fetch('server.php', {
                 method: "POST",
                 header: {
