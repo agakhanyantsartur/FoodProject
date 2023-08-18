@@ -409,6 +409,19 @@ window.addEventListener('DOMContentLoaded', () => {
         return +str.replace(/\D/g, '');
     }
 
+    function updateSlideIndex(slides, slideIndex, current) {
+        if (slides.length < 10) {
+            current.textContent = `0${slideIndex}`;
+        } else {
+            current.textContent = slideIndex;
+        }
+    }
+
+    function dotsStyle(dots, slideIndex) {
+        dots.forEach(dot => dot.style.opacity = '0.5');
+        dots[slideIndex - 1].style.opacity = 1;
+    }
+
     next.addEventListener('click', () => {
         if (offset == deleteNotDigits(width) * (slides.length - 1)) {
             offset = 0;
@@ -424,14 +437,9 @@ window.addEventListener('DOMContentLoaded', () => {
             slideIndex++
         }
 
-        if (slides.length < 10) {
-            current.textContent = `0${slideIndex}`;
-        } else {
-            current.textContent = slideIndex;
-        }
+        updateSlideIndex(slides, slideIndex, current);
 
-        dots.forEach(dot => dot.style.opacity = '0.5');
-        dots[slideIndex - 1].style.opacity = 1;
+        dotsStyle(dots, slideIndex);
     });
 
     prev.addEventListener('click', () => {
@@ -449,14 +457,9 @@ window.addEventListener('DOMContentLoaded', () => {
             slideIndex--
         }
 
-        if (slides.length < 10) {
-            current.textContent = `0${slideIndex}`;
-        } else {
-            current.textContent = slideIndex;
-        }
+        updateSlideIndex(slides, slideIndex, current);
 
-        dots.forEach(dot => dot.style.opacity = '0.5');
-        dots[slideIndex - 1].style.opacity = 1;
+        dotsStyle(dots, slideIndex);
     });
 
     dots.forEach(dot => {
@@ -468,14 +471,9 @@ window.addEventListener('DOMContentLoaded', () => {
  
             slidesField.style.transform = `translateX(-${offset}px)`;
 
-            if (slides.length < 10) {
-                current.textContent = `0${slideIndex}`;
-            } else {
-                current.textContent = slideIndex;
-            }
+            updateSlideIndex(slides, slideIndex, current);
 
-            dots.forEach(dot => dot.style.opacity = '0.5');
-            dots[slideIndex - 1].style.opacity = 1;
+            dotsStyle(dots, slideIndex);
         });
     });
 
@@ -515,5 +513,9 @@ window.addEventListener('DOMContentLoaded', () => {
     // next.addEventListener('click', () => {
     //     plusSlides(1);
     // });
+
+    // Calculator of calories
+
+
 
 });
