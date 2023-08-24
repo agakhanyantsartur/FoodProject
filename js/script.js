@@ -4,40 +4,7 @@
 //3яя назначить обработчик событий на меню который будет манипулировать свойствами
 window.addEventListener('DOMContentLoaded', () => {
     //Tabs
-    const tabs = document.querySelectorAll('.tabheader__item');
-    const tabsContent = document.querySelectorAll('.tabcontent');
-    //Делаем делегирование событий на родителя, чтобы легче было управлять потомком, так как он может меняться динамически
-    const tabsParent = document.querySelector('.tabheader__items');
-
-    function hideTabContent() {
-        tabsContent.forEach(item => {
-            item.classList.add('hide');
-            item.classList.remove('show', 'fade');
-        });
-        tabs.forEach(item => {
-            item.classList.remove('tabheader__item_active'); //В ковычках не ставим точку, т.к и так работаем с классом
-        });
-    }
-
-    function showTabContent(i = 0) { //Если функция вызвается без аргументы, то подстваляется 0
-        tabsContent[i].classList.add('show', 'fade');
-        tabsContent[i].classList.remove('hide');
-        tabs[i].classList.add('tabheader__item_active');
-    }
-    hideTabContent();
-    showTabContent();
-
-    tabsParent.addEventListener('click', (event) => {
-        const target = event.target;
-        if (target && target.classList.contains('tabheader__item')) {
-            tabs.forEach((item, i) => {
-                if (target == item) {
-                    hideTabContent();
-                    showTabContent(i);
-                }
-            });
-        }
-    });
+    
 
     //Timer
 
@@ -160,69 +127,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //Используем классы для карточек
 
-    class MenuCard {
-        constructor (src, alt, title, descr, price, parentSelector, ...classes) {
-            this.src = src;
-            this.alt = alt;
-            this.title = title;
-            this.descr = descr;
-            this.price = price;
-            this.classes = classes;
-            this.parent = document.querySelector(parentSelector);
-            this.transfer = 27; //Курс валюты
-            this.changeToUAH();
-        }
-
-        changeToUAH() {
-            this.price = this.price * this.transfer;
-        }
-
-        render() {
-            const element = document.createElement('div');
-
-            if (this.classes.length === 0) {
-                this.element = 'menu__item'; //дэфолтный класс который будет записываться в это свойство
-                element.classList.add(this.element);
-            } else {
-                this.classes.forEach(className => element.classList.add(className));
-            }
-
-            element.innerHTML = `
-                <img src=${this.src} alt=${this.alt}>
-                <h3 class="menu__item-subtitle">${this.title}</h3>
-                <div class="menu__item-descr">${this.descr}</div>
-                <div class="menu__item-divider"></div>
-                <div class="menu__item-price">
-                    <div class="menu__item-cost">Цена:</div>
-                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
-                </div>
-            `;
-            this.parent.append(element);
-        }
-    }
-
-    const getResource = async (url) => {
-        const res = await fetch(url);
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
-        }
-        return await res.json();
-    };
-
-    //Делаем автоматическое отображение элементов на странице с файла db.json
-    // getResource('http://localhost:3000/menu')
-    //     .then(data => {
-    //         data.forEach(({img, altimg, title, descr, price}) => {
-    //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-    //         });
-    //     });
-
-    axios.get('http://localhost:3000/menu')
-        .then(data => {
-            data.data.forEach(({img, altimg, title, descr, price}) => {
-                new MenuCard(img, altimg, title, descr, price, '.menu .container').render();
-            });
-        });
+    
 
     //2ой способ автоматического отображения элементов на странице
     // getResource('http://localhost:3000/menu')
