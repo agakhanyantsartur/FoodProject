@@ -49,4 +49,4 @@ function modal() {
     window.addEventListener('scroll', showModalByScroll);
 }
 
-module.exports = modal;
+export default modal;
