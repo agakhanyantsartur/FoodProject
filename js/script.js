@@ -7,9 +7,8 @@ import carts from './modules/carts';
 import calculator from './modules/calculator';
 
 window.addEventListener('DOMContentLoaded', () => {
-
     tabs();
-    modal();
+    modal('[data-modal]', '.modal');
     forms();
     slider();
     timer();
