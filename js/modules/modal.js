@@ -32,6 +32,11 @@ function modal(triggerSelector, modalSelector) {
 
   //Делаем так, чтобы когда пользователь нажимал клавишу Esc, модальное окно закрывалось
   
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Escape' && modal.classList.contains('show')) { //Делам так, чтобы при нажатии на Esc, даже когда модальное окно было закрыто, функция закрытия модального окна срабатывала
+      closeModal(modalSelector);
+    }
+  });
 
   //Также делаем так, чтобы модальное окно всплывало через 10-15 сек на сайте
   const modalTimerId = setTimeout(openModal, 50000);
