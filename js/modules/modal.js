@@ -5,21 +5,26 @@ function closeModal(modalSelector) {
   document.body.style.overflow = '';
 }
 
-function openModal(modalSelector) {
+function openModal(modalSelector, modalTimerId) {
   const modal = document.querySelector(modalSelector);
+
   modal.classList.add('show');
   modal.classList.remove('hide');
   document.body.style.overflow = 'hidden';
-  clearInterval(modalTimerId);
+  
+  console.log(modalTimerId);
+  if (modalTimerId) {
+    clearInterval(modalTimerId);
+  }
 }
 
-function modal(triggerSelector, modalSelector) {
+function modal(triggerSelector, modalSelector, modalTimerId) {
   const modalTrigger = document.querySelectorAll(triggerSelector);
   const modal = document.querySelector(modalSelector);
 
   //Так как нам нужно повесить событие на несколько кнопок, мы прописали querySelectorAll и теперь должны перебрать их через forEach
   modalTrigger.forEach (btn => {
-    btn.addEventListener('click', () => openModal(modalSelector)); //для openModal используем прием, когда ее нужно обернуть в функцию так как если мы передаем в обработчик события колбэк функцию, то мы не должны ее сразу вызывать, а должны просто объявить
+    btn.addEventListener('click', () => openModal(modalSelector, modalTimerId)); //для openModal используем прием, когда ее нужно обернуть в функцию так как если мы передаем в обработчик события колбэк функцию, то мы не должны ее сразу вызывать, а должны просто объявить
       // Делаем так, чтобы когда открыто модальное окно, нельзя было скролить
   });
 
@@ -31,19 +36,15 @@ function modal(triggerSelector, modalSelector) {
   });
 
   //Делаем так, чтобы когда пользователь нажимал клавишу Esc, модальное окно закрывалось
-  
   document.addEventListener('keydown', (e) => {
     if (e.code === 'Escape' && modal.classList.contains('show')) { //Делам так, чтобы при нажатии на Esc, даже когда модальное окно было закрыто, функция закрытия модального окна срабатывала
       closeModal(modalSelector);
     }
   });
 
-  //Также делаем так, чтобы модальное окно всплывало через 10-15 сек на сайте
-  const modalTimerId = setTimeout(openModal, 50000);
-
   function showModalByScroll() {
     if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight -1) {
-      openModal(modalSelector);
+      openModal(modalSelector, modalTimerId);
       window.removeEventListener('scroll', showModalByScroll);
     }
   }
