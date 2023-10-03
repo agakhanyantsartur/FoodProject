@@ -10,7 +10,7 @@ import { openModal } from './modules/modal';
 window.addEventListener('DOMContentLoaded', () => {
     const modalTimerId = setTimeout(() => openModal('.modal', modalTimerId), 300000);
     tabs();
-    modal('[data-modal]', '.modal', openModal);
+    modal('[data-modal]', '.modal', modalTimerId);
     forms();
     slider();
     timer();
